@@ -1,9 +1,34 @@
 #include "ls.h"
+#include <string.h>
 
-void  list_display(const char *fname)
+int compare(const void *a, const void *b)
 {
-	int i;
+	return strcasecmp((char *)a, (char *)b);
+}
 
+int get_width(const char* p1, int  p2)
+{
+	int cnt = 0;
+
+	while (p2)
+	{
+		p2/=10;
+		cnt++;
+	}
+
+	if ((cnt == 0 ) && p1 != 0)
+	{
+
+		printf("test: %s\n", p1);
+
+		cnt = strlen(p1);
+	}
+
+	return cnt;
+}
+
+void long_list_display(const char* fname, int width, int flag)
+{
 	struct stat buff;
 	struct passwd *pwd;
 	struct group *grp;
@@ -33,8 +58,8 @@ void  list_display(const char *fname)
 	{
 		if (  ( buff.st_mode >> ( 8 -i ) ) & 0x01 )
 		{
-			
-			perm[i+1] = rwx[i%3]; 
+
+			perm[i+1] = rwx[i%3];
 		}
 
 		if ((i%3 == 2))
@@ -50,6 +75,8 @@ void  list_display(const char *fname)
 
 	}
 
+	if (flag & INODE) printf("%ld ", buff.st_ino);
+
 	printf("%s ", perm);
 	printf("%ld ", buff.st_nlink);
 
@@ -58,12 +85,12 @@ void  list_display(const char *fname)
 
     grp = getgrgid(buff.st_gid);
 	printf("%s ", grp->gr_name);
-	
+
 	if (perm[0] =='c' || perm[0] == 'b')
-		printf("%lu, %lu", (buff.st_rdev>>8)&0xff, buff.st_rdev&0xff );
+		printf("%lu, %lu ", (buff.st_rdev>>8)&0xff, buff.st_rdev&0xff );
 	else
-		printf("%lu ", buff.st_size);
-	
+		printf("%*lu ",width, buff.st_size);
+
 	struct tm* tmp;
 	tmp = localtime(&buff.st_mtime);
 	printf("%2d월 %2d %02d:%02d ", tmp->tm_mon + 1, tmp->tm_mday, tmp->tm_hour, tmp->tm_min);
@@ -73,13 +100,107 @@ void  list_display(const char *fname)
 		char buff[256];
 		int ret = readlink(fname, buff, sizeof buff);
 		buff[ret] = 0;
-		
+
 		printf("%s -> %s\n", fname, buff);
 
 	}
 	else
 		printf("%s\n", fname);
-
-
 }
 
+void short_list_display(const char* fname, int flag )
+{
+	struct stat buff;
+
+	lstat(fname, &buff);
+
+	if (flag&INODE)
+	{
+		printf("%ld  %s\t",buff.st_ino, fname); 
+	}
+	else
+		printf("%s\t", fname);	
+}
+
+void dir_search(const char* dirname, int flag)
+{
+    DIR *dp;
+    struct dirent *p;
+    struct stat buff;
+	int tot_blks = 0;
+	int width = 0; 
+	int max_st_size = 0;
+
+
+    chdir(dirname);
+    dp = opendir(".");
+	
+	if (flag & RECUR) printf("%s :\n",dirname);
+	
+	char dir_fname[1024][30];
+	int n = 0;
+
+    while (p = readdir( dp ))
+	{
+		if (!(flag & ALL) && (p->d_name[0] == '.')) 
+			continue;
+		
+		printf("max_width: %d\n",get_width(dir_fname[n],0));
+		strcpy(dir_fname[n++], p->d_name);
+        lstat(p->d_name, &buff);
+		tot_blks += buff.st_blocks;
+
+		max_st_size = (  max_st_size < buff.st_size)? buff.st_size: max_st_size;
+	}
+
+	qsort(dir_fname, n, sizeof(dir_fname[0]), compare);
+
+//	for (int i = 0 ; i < n ; i ++)
+//		printf("sort: %s\n", dir_fname[i]);
+
+
+	width = get_width(NULL, max_st_size);
+	 
+    rewinddir(dp);
+	if (flag & LIST) printf("total  %d\n", tot_blks/2);
+
+/*
+    while (p = readdir( dp ))
+	{
+		if (!(flag & ALL) && (p->d_name[0] == '.'))
+				continue;
+
+    	if (flag&LIST) long_list_display(p->d_name, width, flag);
+		else short_list_display(p->d_name, flag);
+	}
+*/
+
+	for (int i = 0 ; i < n ; i++)
+	{
+    	if (flag&LIST) long_list_display(dir_fname[i], width, flag);
+		else short_list_display(dir_fname[i], flag);
+	}
+
+    if (!(flag & LIST)) printf("\n");
+
+    rewinddir(dp);
+
+    while ((p = readdir( dp )) && (flag & RECUR))
+    {
+        lstat(p->d_name, &buff);
+		
+        if (S_ISDIR(buff.st_mode))
+        {
+            if (strcmp(p->d_name, ".") && strcmp(p->d_name, ".."))
+			{
+					char namebuff[16] = "./";
+					printf("\n");
+					strcat(namebuff, p->d_name);
+                    dir_search(namebuff, flag);
+			}
+
+        }
+    }
+
+    closedir(dp);
+}
