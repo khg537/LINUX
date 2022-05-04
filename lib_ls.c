@@ -1,5 +1,6 @@
-#include "ls.h"
-#include <string.h>
+#include "xls.h"
+
+extern int multi_dir_flag;
 
 static int  max_uname_w;
 static int  max_grname_w;
@@ -8,6 +9,11 @@ static int  max_fsize_w;
 int compare(const void *a, const void *b)
 {
 	return strcasecmp((char *)a, (char *)b);
+}
+
+int compare_list_name(const void * a1, const void *a2)
+{
+	return strcasecmp(((FILEDESC *)a1)->fname, ((FILEDESC *)a2)->fname);
 }
 
 int get_width(const char* p1, int  p2)
@@ -103,11 +109,13 @@ void long_list_display(const char* fname, int flag)
 		int ret = readlink(fname, buff, sizeof buff);
 		buff[ret] = 0;
 
-		printf("%s -> %s\n", fname, buff);
+		printf("%s -> %s", fname, buff);
 
 	}
 	else
-		printf("%s\n", fname);
+		printf("%s", fname);
+
+	printf("\n");
 }
 
 void short_list_display(const char* fname, int flag )
@@ -118,13 +126,14 @@ void short_list_display(const char* fname, int flag )
 
 	if (flag&INODE)
 	{
-		printf("%ld  %s\t",buff.st_ino, fname); 
+		printf("%ld  %s  ",buff.st_ino, fname); 
 	}
 	else
-		printf("%s\t", fname);	
+		printf("%s  ", fname);	
+
 }
 
-void dir_search(const char* dirname, int flag)
+void dir_display(const char* dirname, int flag)
 {
     DIR *dp;
     struct dirent *p;
@@ -145,11 +154,13 @@ void dir_search(const char* dirname, int flag)
 
     chdir(dirname);
     dp = opendir(".");
-	
-	if (flag & RECUR) printf("%s :\n",dirname);
+
+	//if ((flag & RECUR) || multi_dir_disp) printf("%s :\n",dirname);
+	if (flag & RECUR)  printf("%s :\n",dirname);
 
     while (p = readdir( dp ))
 	{
+		memset(&buff, 0, sizeof buff);
 		if (!(flag & ALL) && (p->d_name[0] == '.')) 
 			continue;
 		
@@ -172,10 +183,8 @@ void dir_search(const char* dirname, int flag)
 		n++;
 	}
 
-	qsort(dir_fname, n, sizeof(dir_fname[0]), compare);
 
-//	for (int i = 0 ; i < n ; i ++)
-//		printf("sort: %s\n", dir_fname[i]);
+	qsort(dir_fname, n, sizeof(dir_fname[0]), compare);
 
 
 	max_fsize_w = get_width(NULL, max_st_size);
@@ -183,29 +192,20 @@ void dir_search(const char* dirname, int flag)
     rewinddir(dp);
 	if (flag & LIST) printf("total  %d\n", tot_blks/2);
 
-/*
-    while (p = readdir( dp ))
-	{
-		if (!(flag & ALL) && (p->d_name[0] == '.'))
-				continue;
-
-    	if (flag&LIST) long_list_display(p->d_name, width, flag);
-		else short_list_display(p->d_name, flag);
-	}
-*/
 
 	for (int i = 0 ; i < n ; i++)
 	{
     	if (flag&LIST) long_list_display(dir_fname[i], flag);
 		else short_list_display(dir_fname[i], flag);
 	}
-
-    if (!(flag & LIST)) printf("\n");
+	
+    if (!(flag & LIST))  printf("\n");
 
     rewinddir(dp);
 
     while ((p = readdir( dp )) && (flag & RECUR))
     {
+		memset(&buff, 0, sizeof buff);
         lstat(p->d_name, &buff);
 		
         if (S_ISDIR(buff.st_mode))
@@ -215,11 +215,13 @@ void dir_search(const char* dirname, int flag)
 					char namebuff[16] = "./";
 					printf("\n");
 					strcat(namebuff, p->d_name);
-                    dir_search(namebuff, flag);
+                    dir_display(namebuff, flag);
 			}
 
         }
     }
 
     closedir(dp);
+	chdir("..");
 }
+
