@@ -5,6 +5,13 @@ set ts=4\
 set background=dark\
 set showmatch\
 
+### GUI/TEXT 전환
+systemctl set-default multi-user.target
+systemctl isolate multi-user.target
+
+systemctl set-default graphical.target
+systemctl isolate graphical.target
+
 ### ubuntu 검은화면 해결책
 sudo apt-get purge lightdm
 
