@@ -1,0 +1,23 @@
+
+
+1) undefined reference to `BIT_STRING_decode_oer' error 발생시
+cp /home/k8s/work/asn1c/skeletons/BIT_STRING_oer.c ./
+cp /home/k8s/work/asn1c/skeletons/OCTET_STRING_oer.c ./
+
+=======================
+https://github.com/mouse07410/asn1c
+asn1c -fcompound-names -findirect-choice -fincludes-quoted -fno-include-deps -pdu=all ../asn/*.asn
+export CFLAGS="-DASN_EMIT_DEBUG=1 -g3 -O0 -I/home/work/asn1c/skeletons"
+make -f converter-example.mk
+
+./converter-example -d -p InitialUEMessage -iaper MSG.aper
+====================
+xxd -r <<EOF >PDUSessionResourceSetupRequestTransfer.aper
+00000000: 00 00 04 00 82 00 08 08 1e 84 80 20 3d 09 00 00
+00000010: 86 00 01 00 00 8b 00 1a 09 f0 11 46 10 10 3f fe
+00000020: 00 00 00 00 00 00 00 00 00 00 11 46 10 10 40 01
+00000030: 01 05 00 88 00 07 00 05 00 00 05 20 00
+EOF
+======
+
+echo '000f407a00000500550005c0649bacbe0026004d4c7e0106ddc95c017e004119000bf202f859020040ef004b422e02f07071002d7e004119000bf202f859020040ef004b421001002e02f0702f0201015202f859000001180101740000905301010079000f4002f8590000e0000002f859000001005a4001180070400100' | xxd -r -p > MSG.aper
