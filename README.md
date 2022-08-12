@@ -36,3 +36,35 @@ curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compo
 chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose \
 docker compose version
 
+
+### Open5gs 설정 ###
+<< open5gs 설정 >>
+//control plane 설정
+1. vi /etc/open5gs/amf.yaml
+amf: 의 ngap: 에 자기 IP 설정
+ 
+2. systemctl restart open5gs-amfd
+
+//user plane 설정
+3. vi /etc/open5gs/upf.yaml 
+upf: 의 gtpu: 에 자기 IP 설정
+
+4. systemctl restart open5gs-upfd
+
+5. NAT port Forwarding 
+sysctl -w net.ipv4.ip_forward=1 && iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE && systemctl stop ufw && iptables -I FORWARD 1 -j ACCEPT
+
+3. 로그 보기
+
+sudo tail -f /var/log/open5gs/amf.log
+sudo tail -f /var/log/open5gs/upf.log
+
+### UERANSIM 설정 ###
+config 폴더의
+open5gs-gnb.yaml 
+open5gs-ue.yaml 
+파일을 설정한다.
+
+gnb start 이후 ue실행
+
+
