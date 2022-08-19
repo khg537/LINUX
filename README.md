@@ -67,4 +67,21 @@ open5gs-ue.yaml
 
 gnb start 이후 ue실행
 
+Libxml2 (2.9.3) 
+
+yum install -y python-devel
+./configure ; make ; make install
+cp ./.libs/libxml2.so /usr/lib64/
+
+CUINT
+yum install cenos-release-scl-rh
+yum install CUnit-devel
+cp -r /usr/include/CUnit/* /usr/include/
+
+Libatomic
+yum install libatomic
+
+/home/rrc/220818_L1Bypass/STACK/CU/SA/FR1/bin
+./execute_cu.sh
+
 
