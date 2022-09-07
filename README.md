@@ -94,3 +94,6 @@ yum install libatomic
 	RRC_F1AP_TRACE(F1AP_INFO, " Server bind addr , port: %d", ntohs(selfENBServerAddr.sin_port));
 
 
+23:31:17.103110 Info     0   65535 f1ap_open_sctp_server_ipv4(693):  Server bind ip address: 172.16.255.255
+23:31:17.103111 Info     0   65535 f1ap_open_sctp_server_ipv4(694):  Server bind addr , port: 38473
+
