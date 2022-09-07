@@ -84,4 +84,13 @@ yum install libatomic
 /home/rrc/220818_L1Bypass/STACK/CU/SA/FR1/bin
 ./execute_cu.sh
 
+## IP 포트 출력
+    /*Bind created socket_desc to SCTP Port*/
+	char ipbuf[INET_ADDRSTRLEN] = {0,};
+	memset(ipbuf, 0x00, sizeof(char)*INET_ADDRSTRLEN);
+	//inet_ntop(AF_INET, &(selfENBServerAddr.sin_addr), ipbuf, INET_ADDRSTRLEN);
+	strcpy(ipbuf, inet_ntoa(selfENBServerAddr.sin_addr));
+	RRC_F1AP_TRACE(F1AP_INFO, " Server bind ip address: %s", ipbuf);		
+	RRC_F1AP_TRACE(F1AP_INFO, " Server bind addr , port: %d", ntohs(selfENBServerAddr.sin_port));
+
 
