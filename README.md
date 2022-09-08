@@ -84,6 +84,10 @@ yum install libatomic
 /home/rrc/220818_L1Bypass/STACK/CU/SA/FR1/bin
 ./execute_cu.sh
 
+##문자열 치환시 매번 확인하는 옵션 (c)
+
+:%s/apple/banana/c
+
 ## IP 포트 출력
     /*Bind created socket_desc to SCTP Port*/
 	char ipbuf[INET_ADDRSTRLEN] = {0,};
