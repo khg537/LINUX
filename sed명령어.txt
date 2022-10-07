@@ -1,18 +1,54 @@
 #!/bin/bash
+CU_OAM_IP=172.19.64.98
+#PDCP_IP=222.222.222.22
 
-CU_IP=444.444.444.44
-PDCP_IP=222.222.222.22
+PREV_SCTP_PORT_NUM=38412
+SCTP_PORT=48412
 
-PREV_SCTP_PORT_NUM=48412
-SCTP_PORT=58412
+sed -i "/^GNB_CU_OAM_IP_ADDRESS/c\GNB_CU_OAM_IP_ADDRESS=$CU_OAM_IP" ../cfg/gNodeB_CU_Configuration.cfg
 
-#sed -i "/^GNB_CU_OAM_IP_ADDRESS/c\GNB_CU_OAM_IP_ADDRESS=$CU_IP" ../cfg/gNodeB_CU_Configuration.cfg
-#sed -i "/^GNB_PDCP_IP_ADDRES/Sc\GNB_CU_OAM_IP_ADDRESS=$PDCP_IP" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^RECEIVER_CORE=/c\RECEIVER_CORE=0000000800000000" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^PDCP_WORKER_CORE=/c\PDCP_WORKER_CORE=0000000400000000" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^MASTER_CORE=/c\MASTER_CORE=0000000400000000" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^PDCP_WORKER_AFTER_ASYNC_CORE=/c\PDCP_WORKER_AFTER_ASYNC_CORE=0000000800000000" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^ASYNC_CORE=/c\ASYNC_CORE=0000000800000000" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^MULTI_ACCUMULATOR_CORE=/c\MULTI_ACCUMULATOR_CORE=0000000400000000" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^F1_WORKER_CORE=/c\F1_WORKER_CORE=0000001000000000" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^X2_WORKER_CORE=/c\X2_WORKER_CORE=0000001000000000" ../cfg/gNodeB_CU_Configuration.cfg
+
+sed -i "/^PR_CONTROL_THR_CORE/c\PR_CONTROL_THR_CORE=67" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^ACCUMULATOR_CORE/c\ACCUMULATOR_CORE=67" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^PR_ACCUMULATOR_CORE/c\PR_ACCUMULATOR_CORE=67" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^BIN_READER_CORE/c\BIN_READER_CORE=65" ../cfg/gNodeB_CU_Configuration.cfg
+sed -i "/^TIMER_CORE/c\TIMER_CORE=67" ../cfg/gNodeB_CU_Configuration.cfg
+
+sed -i "/^RLC_MAC_MAIN_THREAD_AFFINITY=/c\RLC_MAC_MAIN_THREAD_AFFINITY=0000002000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^MAC_TX_CTL_DATA_THREAD_AFFINITY=/c\MAC_TX_CTL_DATA_THREAD_AFFINITY=0000004000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^MAC_SLOT_HDLR_THREAD_AFFINITY=/c\MAC_SLOT_HDLR_THREAD_AFFINITY=0000002000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^MAC_LOW_PRIO_CTRL_THREAD_AFFINITY=/c\MAC_LOW_PRIO_CTRL_THREAD_AFFINITY=0000002000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^MAC_GLOBAL_SCH_THREAD_AFFINITY=/c\MAC_GLOBAL_SCH_THREAD_AFFINITY=0000008000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^MAC_BIN_READER_THREAD_AFFINITY=/c\MAC_BIN_READER_THREAD_AFFINITY=0000080000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^RLC_MASTER_THREAD_AFFINITY=/c\RLC_MASTER_THREAD_AFFINITY=0000010000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^RLC_WORKER_THREAD_AFFINITY=/c\RLC_WORKER_THREAD_AFFINITY=0000000800000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^RLC_TIMER_THREAD_AFFINITY=/c\RLC_TIMER_THREAD_AFFINITY=0000010000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^RLC_ACCUMULATOR_THREAD_AFFINITY=/c\RLC_ACCUMULATOR_THREAD_AFFINITY=0000010000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^RLC_BIN_READER_THREAD_AFFINITY=/c\RLC_BIN_READER_THREAD_AFFINITY=0000080000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+
+sed -i "/^F1_DU_WORKER_THREAD_AFFINITY=/c\F1_DU_WORKER_THREAD_AFFINITY=0000000800000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^RECV_DATA_THREAD_AFFINITY=/c\RECV_DATA_THREAD_AFFINITY=0000000800000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^DU_PR_GTPU_THREAD_AFFINITY=/c\DU_PR_GTPU_THREAD_AFFINITY=0000010000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^DU_PR_ACCUMULATOR_THREAD_AFFINITY=/c\DU_PR_ACCUMULATOR_THREAD_AFFINITY=0000010000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^DU_MGR_THREAD_AFFINITY=/c\DU_MGR_THREAD_AFFINITY=0000100000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^DU_MGR_LOGGER_THREAD_AFFINITY=/c\DU_MGR_LOGGER_THREAD_AFFINITY=0000100000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^DU_OAM_THREAD_AFFINITY=/c\DU_OAM_THREAD_AFFINITY=0000100000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+sed -i "/^DU_OAM_LOGGER_THREAD_AFFINITY=/c\DU_OAM_LOGGER_THREAD_AFFINITY=0000100000000000" ./../../../../DU/SA/FR1/cfg/gNB_DU_Configuration.cfg
+
+
+
+#sed -i "/^GNB_PDCP_IP_ADDRES/c\GNB_CU_OAM_IP_ADDRESS=$PDCP_IP" ../cfg/gNodeB_CU_Configuration.cfg
 #sed -i "/^GNB_NGU_IP_ADDRESS/c\GNB_CU_OAM_IP_ADDRESS=$PDCP_IP" ../cfg/gNodeB_CU_Configuration.cfg
 #sed -i "/^GNB_F1U_CU_IP_ADDRESS/c\GNB_CU_OAM_IP_ADDRESS=$PDCP_IP" ../cfg/gNodeB_CU_Configuration.cfg
 
 sed -i "/<X_VENDOR_SOURCE_PORT_NUMBER>/s/${PREV_SCTP_PORT_NUM}/${SCTP_PORT}/g" ../cfg/TR196_gNodeB_CU_Data_Model.xml
 sed -i "/<port>${PREV_SCTP_PORT_NUM}/s/${PREV_SCTP_PORT_NUM}/${SCTP_PORT}/g" ./../../../../../SIMULATORS/SA/TDD_FR1/L3UESIM/cfg/configureNgapReq.xml
 sed -i "/<port>${PREV_SCTP_PORT_NUM}/s/${PREV_SCTP_PORT_NUM}/${SCTP_PORT}/g" ./../../../../../SIMULATORS/SA/TDD_FR1/L3UESIM/cfg/configureNgapReq_coexist.xml
-
-#sed -i "/<port>/s/>[0-9]*</>${SCTP_PORT}</g" ./../../../../../SIMULATORS/SA/TDD_FR1/L3UESIM/cfg/configureNgapReq_coexist.xml
