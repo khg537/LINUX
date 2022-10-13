@@ -101,3 +101,6 @@ yum install libatomic
 23:31:17.103110 Info     0   65535 f1ap_open_sctp_server_ipv4(693):  Server bind ip address: 172.16.255.255
 23:31:17.103111 Info     0   65535 f1ap_open_sctp_server_ipv4(694):  Server bind addr , port: 38473
 
+
+ libyang, sysrepo, libnetconf2, netopeer2-server 순으로 설치한다
+
