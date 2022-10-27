@@ -1,0 +1,10 @@
+#!/bin/bash
+
+declare -a IPADDR=( "GNB_CU_OAM_IP_ADDRESS"
+        "GNB_SON_IP_ADDRESS")
+
+for IP in "${IPADDR[@]}"
+do
+    IPADDR=`grep $IP ./cfg//gNodeB_CU_Configuration.cfg  | cut -d "=" -f 2`
+    echo "$IP=$IPADDR"
+done
