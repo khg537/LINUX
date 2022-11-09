@@ -9,6 +9,6 @@ set ignorecase
 set hlsearch
 
 set background=dark
-et smartindent
+set smartindent
 
 set expandtab
