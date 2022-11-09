@@ -1,0 +1,13 @@
+### shell 에서 출력을 가져오는 방법 ####
+#!/bin/python
+import subprocess
+
+def get_cmd_output(cmd):
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    out=out.rstrip("\n")
+    return out
+
+out = get_cmd_output("ps -a")
+
+print(out)
