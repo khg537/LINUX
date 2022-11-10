@@ -52,3 +52,7 @@ sed -i "/^DU_OAM_LOGGER_THREAD_AFFINITY=/c\DU_OAM_LOGGER_THREAD_AFFINITY=0000100
 sed -i "/<X_VENDOR_SOURCE_PORT_NUMBER>/s/${PREV_SCTP_PORT_NUM}/${SCTP_PORT}/g" ../cfg/TR196_gNodeB_CU_Data_Model.xml
 sed -i "/<port>${PREV_SCTP_PORT_NUM}/s/${PREV_SCTP_PORT_NUM}/${SCTP_PORT}/g" ./../../../../../SIMULATORS/SA/TDD_FR1/L3UESIM/cfg/configureNgapReq.xml
 sed -i "/<port>${PREV_SCTP_PORT_NUM}/s/${PREV_SCTP_PORT_NUM}/${SCTP_PORT}/g" ./../../../../../SIMULATORS/SA/TDD_FR1/L3UESIM/cfg/configureNgapReq_coexist.xml
+
+현재 디렉토리를 기준으로 하위경로에 있는 *.SQL 확장자 파일에 대하여 A 문자열을 B 문자열로 변경합니다.
+
+find ./ -name "*.SQL" -exec sed -i "s/A/B/g" {} \;
