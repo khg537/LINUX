@@ -1,6 +1,6 @@
 du id 2으로 cell 1로 보내는 방법.
 cell id를 넣을 때는 CU에서는 아래 값을 다 조정해야 함.
-
+cell 순서는 TR196 문서에 의해 결정되며 Proprietary 문서는 있기만 하면 됨.
 cell id를 넣을 때 Proprietary_gNodeB_CU_Data_Model.xml  값 stack_config 안에 설정된 값을 사용하지 않으면 RRC_RRM_F1_SETUP_RESP 에서 에러 남. (RRC_RRM_F1_SETUP_REQ_SERVED_CELL_LIST_PRESENT)
 - CU -
 1. Proprietary_gNodeB_CU_Data_Model.xml 
