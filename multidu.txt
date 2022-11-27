@@ -1,0 +1,38 @@
+du id 2으로 cell 1로 보내는 방법.
+cell id를 넣을 때는 CU에서는 아래 값을 다 조정해야 함.
+
+cell id를 넣을 때 Proprietary_gNodeB_CU_Data_Model.xml  값 stack_config 안에 설정된 값을 사용하지 않으면 RRC_RRM_F1_SETUP_RESP 에서 에러 남. (RRC_RRM_F1_SETUP_REQ_SERVED_CELL_LIST_PRESENT)
+- CU -
+1. Proprietary_gNodeB_CU_Data_Model.xml 
+<du_index>1 을 찾아서 아래 부분을 수정한다.
+<du_CommInfo> -> <IPAddr>192.168.56.108
+<du_CommInfo> -> <CellIdentity> 3333
+
+2. TR196_gNodeB_CU_Data_Model.xml  을 맞게 수정
+cell 1 <RAN>   <Common>
+
+
+- DU -
+1. du id 를 수정한다.
+- gNB_DU_Configuration.cfg
+DUID
+- Proprietary_gNodeB_DU_Data_Model.xml
+<gNBDUID>2
+
+2. F1 setup 을 위한 IP 설정을 한다. TR196_gNodeB_DU_Data_Model.xml
+로컬 IP를 맞춘다. ( CU에서 본 DU 의 IP 주소가 됨.)
+ <!--  F1AP IP address -->
+        <IPInterfaceIPAddress>192.168.56.108</IPInterfaceIPAddress>
+<IPInterface>
+        <Enable>1</Enable>
+        <!--  F1U IP address -->
+        <IPInterfaceIPAddress>192.168.56.108</IPInterfaceIPAddress>
+
+3. cell 을 설정한다. TR196_gNodeB_DU_Data_Model.xml
+TR196_gNodeB_DU_Data_Model.xml
+<FIVEGNR> 이 cell id 별로 설정 할 수 있게 되어있음. 
+
+
+
+
+
