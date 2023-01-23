@@ -1,0 +1,11 @@
+#define LOG_TRACE(...)  printlog_(__FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+extern void printlog_(const char* filename, const char* funcname, const int lineno, const char* fmt, ...);
+
+void printlog_(const char* filename, const char* funcname, const int lineno, const char* fmt, ...)
+{
+	va_list ap;
+	va_start(ap, fmt);
+	printf("[%s , %s,  %d]\n", filename, funcname, lineno);
+	vprintf(fmt, ap);
+	va_end(ap);
+}
