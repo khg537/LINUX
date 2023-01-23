@@ -8,3 +8,9 @@ do
     IPADDR=`grep $IP ./cfg//gNodeB_CU_Configuration.cfg  | cut -d "=" -f 2`
     echo "$IP=$IPADDR"
 done
+
+===========================================================
+today=`date +%m%d%y`
+curtime=`date +%m%d_%H%M`
+
+$EXE | tee console${curtime}.log
