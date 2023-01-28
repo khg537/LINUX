@@ -56,3 +56,6 @@ sed -i "/<port>${PREV_SCTP_PORT_NUM}/s/${PREV_SCTP_PORT_NUM}/${SCTP_PORT}/g" ./.
 현재 디렉토리를 기준으로 하위경로에 있는 *.SQL 확장자 파일에 대하여 A 문자열을 B 문자열로 변경합니다.
 
 find ./ -name "*.SQL" -exec sed -i "s/A/B/g" {} \;
+
+여러화일에서 특정문자 검색 후 변경
+grep -rl "특정문자" * | xargs sed -i 's/특정문자/바꿀문자/g'
