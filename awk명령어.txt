@@ -1,0 +1,23 @@
+====================
+ls -l
+total 141480
+-rwxr-xr-x   1 root         root             53985 Jan 26 16:38 auto_my.py
+drwxr-xr-x   2 root         root                30 Jan 26 15:02 compile_logs
+-rw-r--r--   1 tcpdump      tcpdump       19178460 Dec  1 20:06 multi_du1.pcap
+-rw-r--r--   1 tcpdump      tcpdump      105546265 Dec  1 20:10 multi_du2.pcap
+-rw-------   1 root         root             94512 Jan 31 10:20 nohup.out
+drwxr-xr-x.  9 hyungoo.kang root              4096 Nov 16 10:22 o-du-l2
+drwxrwxr-x   2 hyungoo.kang hyungoo.kang         6 Nov 22 16:37 p5g_vran_release
+-rwxrwxr-x   1 hyungoo.kang hyungoo.kang       794 Jan 27 08:30 prerequisite.sh
+drwxrwxr-x  18 hyungoo.kang hyungoo.kang      4096 Nov 16 18:55 pyang
+drwxr-xr-x   2 root         root               198 Jan 30 16:27 Terminal_logs
+-rwxrwxr-x   1 hyungoo.kang hyungoo.kang      8464 Jan 17 14:54 test
+-rw-r--r--   1 tcpdump      tcpdump       19951787 Nov 29 09:58 test1.pcap
+-rw-rw-r--   1 hyungoo.kang hyungoo.kang       221 Jan 17 14:54 test2.c
+-rw-rw-r--   1 hyungoo.kang hyungoo.kang       544 Jan 11 12:51 test.c
+drwxrwxr-x   8 hyungoo.kang hyungoo.kang       215 Dec  7 12:06 UERANSIM
+drwxr-xr-x   7 hyungoo.kang root               116 Jan 30 08:23 yangs
+
+ls -l |  awk 'NR==3 {print $9}'
+compile_logs
+====================================
