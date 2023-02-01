@@ -1,0 +1,62 @@
+sysrepocfg --export --xpath /_3gpp-common-managed-element:ManagedElement[id=6]/GNBCUCPFunction/attributes/peeParametersList --datastore startup
+================================================
+> get-config --filter-xpath  /_3gpp-common-managed-element:ManagedElement[id=6]/GNBCUCPFunction/attributes/peeParametersList --source startup
+DATA
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
+    <id>6</id>
+    <GNBCUCPFunction xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction">
+      <id>6</id>
+      <attributes>
+        <peeParametersList>
+          <siteIdentification>00256D</siteIdentification>
+          <siteDescription>Home gNodeB</siteDescription>
+          <equipmentType>1</equipmentType>
+          <environmentType>1</environmentType>
+          <powerInterface>1</powerInterface>
+        </peeParametersList>
+      </attributes>
+    </GNBCUCPFunction>
+  </ManagedElement>
+</data>
+=========================================================
+
+> edit-config --target candidate --config=test.xml
+> get-config --filter-xpath  /_3gpp-common-managed-element:ManagedElement[id=6]/GNBCUCPFunction/attributes/peeParametersList --source candidate
+DATA
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
+    <id>6</id>
+    <GNBCUCPFunction xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction">
+      <id>6</id>
+      <attributes>
+        <peeParametersList>
+          <siteIdentification>00256D</siteIdentification>
+          <siteDescription>Home gNodeB-2</siteDescription>
+          <equipmentType>1</equipmentType>
+          <environmentType>1</environmentType>
+          <powerInterface>1</powerInterface>
+        </peeParametersList>
+      </attributes>
+    </GNBCUCPFunction>
+  </ManagedElement>
+</data>
+
+================
+test.xml
+  <ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
+    <id>6</id>
+    <GNBCUCPFunction xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction">
+      <id>6</id>
+      <attributes>
+        <peeParametersList>
+          <siteIdentification>00256D</siteIdentification>
+          <siteDescription>Home-gNodeB</siteDescription>
+          <equipmentType>1</equipmentType>
+          <environmentType>1</environmentType>
+          <powerInterface>1</powerInterface>
+        </peeParametersList>
+      </attributes>
+    </GNBCUCPFunction>
+  </ManagedElement>
+  =============
