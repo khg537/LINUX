@@ -1,0 +1,5 @@
+flannel설치
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl get pods -n kube-system
+kubectl patch node master1.example.com -p '{"spec":{"podCIDR":"172.168.0.0/16"}}
+kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=10.0.2.110
