@@ -1,0 +1,1 @@
+find ./gNB_WEB_UI -type f -exec grep -n "function" {} \;
