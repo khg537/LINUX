@@ -1,2 +1,3 @@
 find ./gNB_WEB_UI -type f -exec grep -n "function" {} \;
 find ./ -name "*.SQL" -exec sed -i "s/A/B/g" {} \;
+find ./gNB_WEB_UI -type f -exec sed -i  "s/172.31.140.145/192.168.56.105/g" {} \;
