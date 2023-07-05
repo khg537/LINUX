@@ -1,1 +1,2 @@
 find ./gNB_WEB_UI -type f -exec grep -n "function" {} \;
+find ./ -name "*.SQL" -exec sed -i "s/A/B/g" {} \;
