@@ -1,0 +1,5 @@
+branch : p5g_vran_release
+repo init -u ssh://10.168.177.184:29420/platform/manifest.git -b p5g_vran_release --repo-url=git://lr.lge.com/repo.git
+repo sync -qcj4 --no-tags
+repo start p5g_vran_release --all
+git push ssh://10.168.177.184:29420/l2l3 HEAD:refs/for/p5g_vran_release
