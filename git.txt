@@ -3,7 +3,8 @@ repo init -u ssh://10.168.177.184:29420/platform/manifest.git -b p5g_vran_releas
 repo sync -qcj4 --no-tags
 repo start p5g_vran_release --all
 git push ssh://10.168.177.184:29420/l2l3 HEAD:refs/for/p5g_vran_release
-
+git reset --hard 489c1155073ef6ddc170b9750330fa2713affc95
+git pull
 
 1. $ ssh-keygen -t rsa  (If you already ave a pub key, do not run this command)
 
