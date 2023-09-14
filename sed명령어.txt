@@ -59,3 +59,6 @@ find ./ -name "*.SQL" -exec sed -i "s/A/B/g" {} \;
 
 여러화일에서 특정문자 검색 후 변경
 grep -rl "특정문자" * | xargs sed -i 's/특정문자/바꿀문자/g'
+
+숫자에 대한 정규표현식 사용
+echo "<PLMNID>7867</PLMNID>"| sed  's/<PLMNID>[0-9]\+</<PLMNID>123456</g'
