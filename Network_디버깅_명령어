@@ -1,0 +1,16 @@
+tshark -i enp0s3 -f "tcp port 80"
+tshark -i enp0s3 -f icmp -Y "ip.dst == 222.222.222.22 or ip.src == 111.22.22.22" 
+
+
+444번 포트로 연결을 기다리고 있음.
+nc -lvp 4444
+
+
+nc -l 7979
+nc 111.111.11.11 7979
+
+netcat -u host port
+
+20번에서 80번 포트 검색
+-z 는 포트검색 -v 자세히
+nc -z -v 10.10.8.8 20-80
