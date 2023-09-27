@@ -1,0 +1,3 @@
+디렉토리별 용량 확인
+du -hsx /* | sort -rh | head -n 40
+du -hsx /var/* | sort -rh | head -n 40
