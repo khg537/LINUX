@@ -1,2 +1,12 @@
 // 파일 용량을 차지하는 폴더 찾기
 du -h / 2>/dev/null | sort -rh | head -n 20
+
+//미사용중인 패키지 삭제
+apt-get -y autoremove
+
+//패키지 캐시데이터 확인 후 삭제
+du -sh /var/cache/apt
+apt-get clean
+
+dpkg -l
+apt-get purge "패키지명"
