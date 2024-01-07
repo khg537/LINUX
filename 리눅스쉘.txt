@@ -14,3 +14,17 @@ today=`date +%m%d%y`
 curtime=`date +%m%d_%H%M`
 
 $EXE | tee console${curtime}.log
+
+============================================================
+#!/bin/bash
+path=/home/hyungoo/work/shell/test
+fname=`ls -rt $path| tail -n 1`
+
+echo $fname
+
+fullname=$path'/'$fname
+echo $fullname
+
+tar cvfz $fname.tgz $fullname
+rm -ri $fullname
+============================================================
