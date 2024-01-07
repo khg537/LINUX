@@ -10,3 +10,7 @@ apt-get clean
 
 dpkg -l
 apt-get purge "패키지명"
+
+//history command에 time 표시
+HISTTIMEFORMAT='## %Y-%m-%d %T ##'
+
