@@ -1,0 +1,3 @@
+tshark -i enp0s3 -f icmp -Y "ip.dst == 8.8.8.8 or ip.src == 8.8.8.8"
+tshark -i any -f sctp
+tshark -i any -f "tcp port 80"
