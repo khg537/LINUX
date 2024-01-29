@@ -6,3 +6,7 @@ example.json
     "age": 30,
     "email": "johndoe@example.com"
 }
+
+2. 화일 형태가 아니게 보내는 방법.
+curl -k -X POST -H "Content-Type: application/json" -d '{"key1":"value1", "key2":"value2"}' https://127.0.0.1:5000/v1.2/registration
+
