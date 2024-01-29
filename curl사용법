@@ -1,0 +1,8 @@
+1. example.json 화일을 만든다.
+curl -k -X POST -H "Content-Type: application/json" -d @example.json https://127.0.0.1:5000/v1.2/registration
+example.json
+{
+    "name": "John Doe",
+    "age": 30,
+    "email": "johndoe@example.com"
+}
