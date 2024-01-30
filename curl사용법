@@ -10,3 +10,40 @@ example.json
 2. 화일 형태가 아니게 보내는 방법.
 curl -k -X POST -H "Content-Type: application/json" -d '{"key1":"value1", "key2":"value2"}' https://127.0.0.1:5000/v1.2/registration
 
+ex)
+ curl -k -X POST -H "Content-Type: application/json" -d @registration.json https://127.0.0.1:5000/v1.2/registration
+
+{
+        "registrationRequest":  [{
+                        "userId":       "CAPGEMINI",
+                        "fccId":        "abc123",
+                        "cbsdSerialNumber":     "abcd1234",
+                        "cbsdCategory": "A",
+                        "callSign":     "WAA206",
+                        "cbsdInfo":     {
+                                "vendor":       "CAPGEMINI",
+                                "model":        "1.0",
+                                "softwareVersion":      "1.0",
+                                "hardwareVersion":      "1.0",
+                                "firmwareVersion":      "1.0"
+                        },
+                        "airInterface": {
+                                "radioTechnology":      "5GNR"
+                        },
+                        "installationParam":    {
+                                "latitude":     5.123456,
+                                "longitude":    -5.978654,
+                                "height":       2,
+                                "heightType":   "AGL",
+                                "indoorDeployment":     false,
+                                "eirpCapability":       0,
+                                "antennaBeamwidth":     1,
+                                "antennaGain":  1,
+                                "antennaModel": "ABC",
+                                "antennaAzimuth":       1,
+                                "antennaDowntilt":      0
+                        }
+                }]
+}
+
+
